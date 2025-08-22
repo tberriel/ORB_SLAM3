@@ -1,5 +1,6 @@
 #echo "Configuring and building Thirdparty/DBoW2 ..."
-#cd Thirdparty/DBoW2
+cd Thirdparty
+#cd DBoW2
 #mkdir build
 #cd build
 #cmake .. -DCMAKE_BUILD_TYPE=Release
@@ -11,8 +12,9 @@ echo "Configuring and building Thirdparty/g2o ..."
 cd g2o
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j
+cmake .. -DCMAKE_INSTALL_PREFIX="../install" \
+         -DCMAKE_BUILD_TYPE="Release" 
+make -j install
 cd ../../
 
 
@@ -38,4 +40,4 @@ echo "Configuring and building ORB_SLAM3 ..."
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
-make -j4
+make -j4 install

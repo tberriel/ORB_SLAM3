@@ -7,6 +7,8 @@ endif()
 
 
 message("Build type: " ${CMAKE_BUILD_TYPE})
+option(BUILD_PYTHON_BINDINGS "Build Python bindings for ORB_SLAM3" ON)
+message(STATUS "Build Python bindings: ${BUILD_PYTHON_BINDINGS}")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -340,4 +342,40 @@ if(realsense2_FOUND)
     add_executable(stereo_inertial_realsense_D435i_old
             Examples_old/Stereo-Inertial/stereo_inertial_realsense_D435i.cc)
     target_link_libraries(stereo_inertial_realsense_D435i_old ${PROJECT_NAME})
+endif()
+
+# ---------------
+# Installation instructions.
+# ---------------
+install(TARGETS ${PROJECT_NAME}
+    DESTINATION  lib
+    COMPONENT library)
+install(FILES
+        ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
+        ${G2O_LIBRARIES}
+    DESTINATION lib
+    COMPONENT library)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+    DESTINATION include/ORB_SLAM3
+    COMPONENT library
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN "Thirdparty" EXCLUDE)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/CameraModels/
+    DESTINATION include/ORB_SLAM3/CameraModels
+    COMPONENT library
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN "Thirdparty" EXCLUDE)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/Thirdparty/
+    DESTINATION include/ORB_SLAM3/Thirdparty
+    COMPONENT library
+FILES_MATCHING REGEX ".*\\.h(pp)?")
+# ----------------------------------------------------------------------------
+# Python Bindings (Optional)
+# ----------------------------------------------------------------------------
+if(BUILD_PYTHON_BINDINGS)
+    message(STATUS "Configuring Python bindings...")    
+    add_subdirectory(python) 
+else()
+    message(STATUS "Skipping Python bindings configuration.")
 endif()

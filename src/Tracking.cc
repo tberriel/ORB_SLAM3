@@ -3977,6 +3977,10 @@ void Tracking::InformOnlyTracking(const bool &flag)
     mbOnlyTracking = flag;
 }
 
+bool Tracking::isLastFrameKeyframe(){
+    return mnLastKeyFrameId == mLastFrame.mnId;
+}
+
 void Tracking::UpdateFrameIMU(const float s, const IMU::Bias &b, KeyFrame* pCurrentKeyFrame)
 {
     Map * pMap = pCurrentKeyFrame->GetMap();
