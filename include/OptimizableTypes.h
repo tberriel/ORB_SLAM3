@@ -20,8 +20,8 @@
 #define ORB_SLAM3_OPTIMIZABLETYPES_H
 
 #include "Thirdparty/g2o/g2o/core/base_unary_edge.h"
-#include <Thirdparty/g2o/g2o/types/types_six_dof_expmap.h>
-#include <Thirdparty/g2o/g2o/types/sim3.h>
+#include <Thirdparty/g2o/g2o/types/sba/types_six_dof_expmap.h>
+#include <Thirdparty/g2o/g2o/types/sim3/sim3.h>
 
 #include <Eigen/Geometry>
 #include <include/CameraModels/GeometricCamera.h>
