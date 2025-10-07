@@ -292,8 +292,8 @@ void LoopClosing::Run()
                     mbLoopDetected = false;
                 }
 
-            }
             mpLastCurrentKF = mpCurrentKF;
+            }
         }
 
         ResetIfRequested();

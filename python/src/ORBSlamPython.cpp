@@ -38,8 +38,8 @@ BOOST_PYTHON_MODULE(orbslam3)
         .value("IMU_STEREO", ORB_SLAM3::System::eSensor::IMU_STEREO)
         .value("IMU_RGBD", ORB_SLAM3::System::eSensor::IMU_RGBD);
 
-    boost::python::class_<ORBSlamPython, boost::noncopyable>("System", boost::python::init<const char*, const char*, boost::python::optional<ORB_SLAM3::System::eSensor, bool, int, const char*>>())
-        .def(boost::python::init<std::string, std::string, boost::python::optional<ORB_SLAM3::System::eSensor, bool, int, std::string>>())
+    boost::python::class_<ORBSlamPython, boost::noncopyable>("System", boost::python::init<const char*, const char*, boost::python::optional<ORB_SLAM3::System::eSensor, bool, bool, int, const char*>>())
+        .def(boost::python::init<std::string, std::string, boost::python::optional<ORB_SLAM3::System::eSensor, bool, bool, int, std::string>>())
         .def("initialize", &ORBSlamPython::initialize)
         .def("load_and_process_mono", &ORBSlamPython::loadAndProcessMono)
         .def("process_image_mono", &ORBSlamPython::processMono)
@@ -69,12 +69,13 @@ BOOST_PYTHON_MODULE(orbslam3)
         .staticmethod("load_settings_file");
 }
 
-ORBSlamPython::ORBSlamPython(std::string vocabFile, std::string settingsFile, ORB_SLAM3::System::eSensor sensorMode, const bool useViewer, const int initFr, std::string sequence)
+ORBSlamPython::ORBSlamPython(std::string vocabFile, std::string settingsFile, ORB_SLAM3::System::eSensor sensorMode, const bool useViewer, const bool turnOffLC, const int initFr, std::string sequence)
     : vocabluaryFile(vocabFile),
     settingsFile(settingsFile),
     sensorMode(sensorMode),
     system(nullptr),
     bUseViewer(useViewer),
+    bturnOffLC(turnOffLC),
     bUseRGB(true),
     initFr(initFr),
     sequence(sequence)
@@ -82,12 +83,13 @@ ORBSlamPython::ORBSlamPython(std::string vocabFile, std::string settingsFile, OR
     
 }
 
-ORBSlamPython::ORBSlamPython(const char* vocabFile, const char* settingsFile, ORB_SLAM3::System::eSensor sensorMode, const bool useViewer, const int initFr, const char* sequence)
+ORBSlamPython::ORBSlamPython(const char* vocabFile, const char* settingsFile, ORB_SLAM3::System::eSensor sensorMode, const bool useViewer, const bool turnOffLC, const int initFr, const char* sequence)
     : vocabluaryFile(vocabFile),
     settingsFile(settingsFile),
     sensorMode(sensorMode),
     system(nullptr),
     bUseViewer(useViewer),
+    bturnOffLC(turnOffLC),
     bUseRGB(true),
     initFr(initFr),
     sequence(sequence)
@@ -105,7 +107,7 @@ ORBSlamPython::~ORBSlamPython()
 
 bool ORBSlamPython::initialize()
 {
-    system = std::make_shared<ORB_SLAM3::System>(vocabluaryFile, settingsFile, sensorMode, bUseViewer, initFr, sequence);
+    system = std::make_shared<ORB_SLAM3::System>(vocabluaryFile, settingsFile, sensorMode, bUseViewer, initFr, sequence, bturnOffLC);
     return true;
 }
 

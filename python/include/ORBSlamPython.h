@@ -11,9 +11,9 @@ class ORBSlamPython
 {
 public:
     ORBSlamPython(std::string vocabFile, std::string settingsFile,
-        ORB_SLAM3::System::eSensor sensorMode = ORB_SLAM3::System::eSensor::RGBD, const bool useViewer = true, const int initFr = 0, std::string sequence = std::string());
+        ORB_SLAM3::System::eSensor sensorMode = ORB_SLAM3::System::eSensor::RGBD, const bool useViewer = true, const bool turnOffLC = false, const int initFr = 0, std::string sequence = std::string());
     ORBSlamPython(const char* vocabFile, const char* settingsFile,
-        ORB_SLAM3::System::eSensor sensorMode = ORB_SLAM3::System::eSensor::RGBD, const bool useViewer = true, const int initFr = 0, const char* sequence = "");
+        ORB_SLAM3::System::eSensor sensorMode = ORB_SLAM3::System::eSensor::RGBD, const bool useViewer = true, const bool turnOffLC = false, const int initFr = 0, const char* sequence = "");
     ~ORBSlamPython();
     
     bool initialize();
@@ -52,6 +52,7 @@ private:
     ORB_SLAM3::System::eSensor sensorMode;
     std::shared_ptr<ORB_SLAM3::System> system;
     bool bUseViewer;
+    bool bturnOffLC;
     bool bUseRGB;
     int initFr;
 };
