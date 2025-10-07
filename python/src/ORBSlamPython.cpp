@@ -355,7 +355,7 @@ boost::python::list ORBSlamPython::getKeyframePoints() const
         if(pKF->isBad())
             continue;
 
-        Eigen::Matrix3f R = pKF->GetRotation(); //.t();
+        Eigen::Matrix3f R = pKF->GetRotation().transpose(); //.t();
         Eigen::Vector3f t = pKF->GetCameraCenter();
         trajectory.append(boost::python::make_tuple(
                               pKF->mTimeStamp,
