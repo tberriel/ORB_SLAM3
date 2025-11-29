@@ -1,11 +1,11 @@
 #echo "Configuring and building Thirdparty/DBoW2 ..."
 cd Thirdparty
-#cd DBoW2
-#mkdir build
-#cd build
-#cmake .. -DCMAKE_BUILD_TYPE=Release
-#make -j
-#cd ../..
+cd DBoW2
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j
+cd ../..
 
 echo "Configuring and building Thirdparty/g2o ..."
 
@@ -16,15 +16,6 @@ cmake .. -DCMAKE_INSTALL_PREFIX="../install" \
          -DCMAKE_BUILD_TYPE="Release" 
 make -j install
 cd ../../
-
-
-#echo "Configuring and building Thirdparty/Sophus ..."
-#cd Sophus
-#mkdir build
-#cd build
-#cmake .. -DCMAKE_BUILD_TYPE=Release
-#make -j
-#cd ../../
 
 cd ../
 echo "Uncompress vocabulary ..."
